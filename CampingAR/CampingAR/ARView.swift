@@ -69,8 +69,10 @@ struct ARViewContainer: UIViewRepresentable {
     func updateUIView(_ uiView: ARView, context: Context) {
         guard let dropPoint = self.dropLocation else { return }
         let totalCount = ARViewInteractor(arView: uiView).addBox(location: dropPoint)
-        self.dropLocation = nil
-        self.totalRayTraceHits = totalCount
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.dropLocation = nil
+            self.totalRayTraceHits = totalCount
+        }
     }
 }
 
@@ -111,10 +113,11 @@ struct ARViewInteractor: DropDelegate {
             let box = MeshResource.generateBox(size: 0.3)
             let material = SimpleMaterial(color: .green, isMetallic: false)
             let entity = ModelEntity(mesh: box, materials: [material])
+            entity.generateCollisionShapes(recursive: true)
             let anchor = AnchorEntity(raycastResult: result)
             anchor.addChild(entity)
             arView.scene.addAnchor(anchor)
-            arView.installGestures([.rotation, .scale], for: entity)
+            arView.installGestures([.rotation, .translation], for: entity)
         }
         return rayCast.count
     }
