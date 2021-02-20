@@ -12,6 +12,7 @@ import SwiftUI
 struct ARViewContainer: UIViewRepresentable {
     @Binding var totalRayTraceHits: Int
     @Binding var dropLocation: CGPoint?
+    @Binding var shouldShowMenu: Bool
     
     //    static func makeBox(target: ARRaycastQuery.Target) {
     //        let box = MeshResource.generateBox(size: 0.3)
@@ -35,7 +36,7 @@ struct ARViewContainer: UIViewRepresentable {
     
     func makeUIView(context: Context) -> ARView {
         
-        let arView = ARView(frame: .zero)
+        let arView = CustomARView(binding: self.$shouldShowMenu)
         arView.addCoaching()
         context.coordinator.arView = arView
         
@@ -123,7 +124,21 @@ struct ARViewInteractor: DropDelegate {
     }
 }
 
-extension ARView: ARCoachingOverlayViewDelegate {
+class CustomARView: ARView {
+    let hasPlane: Binding<Bool>
+    init(binding: Binding<Bool>) {
+        self.hasPlane = binding
+        super.init(frame: .zero)
+    }
+    
+    @objc required dynamic init(frame frameRect: CGRect) {
+        fatalError("init(frame:) has not been implemented")
+    }
+    
+    @objc required dynamic init?(coder decoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     func addCoaching() {
         let coachingOverlay = ARCoachingOverlayView()
         coachingOverlay.delegate = self
@@ -134,8 +149,12 @@ extension ARView: ARCoachingOverlayViewDelegate {
     }
 }
 
-struct ARView_Previews: PreviewProvider {
-    static var previews: some View {
-        ARViewContainer(totalRayTraceHits: Binding(get: { 1 }, set: {_ in }), dropLocation: Binding(get: { nil }, set: {_ in }))
+extension CustomARView : ARCoachingOverlayViewDelegate {
+    func coachingOverlayViewWillActivate(_ coachingOverlayView: ARCoachingOverlayView) {
+        self.hasPlane.wrappedValue = false
+    }
+    
+    func coachingOverlayViewDidDeactivate(_ coachingOverlayView: ARCoachingOverlayView) {
+        self.hasPlane.wrappedValue = true
     }
 }

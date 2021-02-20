@@ -12,13 +12,16 @@ import RealityKit
 struct ContentView : View {
     @State var totalRayTraceHits = 0
     @State var dropLocation: CGPoint? = nil
+    @State var shouldShowMenu = false
     var body: some View {
-        VStack {
-            ARViewContainer(totalRayTraceHits: self.$totalRayTraceHits, dropLocation: self.$dropLocation)
+        ZStack(alignment: .bottomTrailing) {
+            ARViewContainer(totalRayTraceHits: self.$totalRayTraceHits, dropLocation: self.$dropLocation, shouldShowMenu: self.$shouldShowMenu)
                 .becomeDroppable()
                 .edgesIgnoringSafeArea(.all)
-                .overlay(Text("Total hits: \(totalRayTraceHits)").padding(), alignment: .bottomTrailing)
-            CampingObjectView()
+                .overlay(Text("Total hits: \(totalRayTraceHits)").padding(), alignment: .topTrailing)
+            if shouldShowMenu {
+                CampingObjectView()
+            }
         }
     }
 }
