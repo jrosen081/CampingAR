@@ -24,6 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window.rootViewController = UIHostingController(rootView: contentView)
         self.window = window
         window.makeKeyAndVisible()
+        UITextField.appearance().backgroundColor = .clear
+        UITextField.appearance().textColor = .black
         return true
     }
 

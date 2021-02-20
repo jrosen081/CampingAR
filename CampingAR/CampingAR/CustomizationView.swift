@@ -21,45 +21,49 @@ struct CustomizationView: View {
     }
     
     var body: some View {
-        VStack {
-            TextField("Search:", text: self.$currentOptions)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-            ZStack {
-                ScrollView {
-                    LazyVGrid(columns: Array(repeating: GridItem(.flexible(minimum: 0, maximum: .infinity), spacing: nil, alignment: nil), count: 3)) {
-                        ForEach(validObjects, id: \.0) { name, object in
-                            HStack {
-                                Spacer()
-                                VStack {
+        ZStack {
+            Color(hue: 0.108, saturation: 0.1, brightness: 0.96)
+            VStack {
+                TextField("Search:", text: self.$currentOptions)
+                    .textFieldStyle(RoundedBorderTextFieldStyle()).background(Color.white).foregroundColor(Color.black)
+                ZStack {
+                    ScrollView {
+                        LazyVGrid(columns: Array(repeating: GridItem(.flexible(minimum: 0, maximum: .infinity), spacing: 0, alignment: nil), count: 3)) {
+                            ForEach(validObjects, id: \.0) { name, object in
+                                HStack {
                                     Spacer()
-                                    Text(name)
-                                    Image(object.iconName).resizable().frame(maxHeight: 100)
+                                    VStack {
+                                        Spacer()
+                                        Text(name).foregroundColor(.black)
+                                        Image(object.iconName).resizable().frame(width: 100, height: 100)
+                                        Spacer()
+                                        
+                                    }
                                     Spacer()
-                                    
+                                }.overlay(self.rectangle).foregroundColor(.black)
+                                .padding(10).onTapGesture {
+                                    self.selectedObject = object
                                 }
-                                Spacer()
-                            }.overlay(self.rectangle)
-                            .padding().onTapGesture {
-                                self.selectedObject = object
                             }
                         }
                     }
-                }
-                if validObjects.isEmpty {
-                    VStack {
-                        Image("oops")
-                            .renderingMode(.template)
-                            .resizable()
-                            .foregroundColor(.secondary)
-                            .frame(width: 200, height: 200)
-                        Text("Nothing matched that name, try again :)")
+                    if validObjects.isEmpty {
+                        VStack {
+                            Image("oops")
+                                .renderingMode(.template)
+                                .resizable()
+                                .foregroundColor(.black)
+                                .frame(width: 200, height: 200)
+                            Text("Nothing matched that name, try again :)").foregroundColor(.black)
+                        }
                     }
                 }
-            }
-        }.padding()
+            }.padding()
+        }
+
     }
     
     var rectangle: some View {
-        RoundedRectangle(cornerRadius: 10).stroke(Color.gray)
+        RoundedRectangle(cornerRadius: 10).stroke(Color(hue: 0.08, saturation: 1, brightness: 0.84))
     }
 }
