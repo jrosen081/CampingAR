@@ -40,7 +40,7 @@ struct ContentView : View {
             if let object = selectedObject {
                 Image(object.iconName).frame(width: 100, height: 100)
             }
-        }.sheet(isPresented: self.$isShowingCustomization) {
+        }.edgesIgnoringSafeArea(.bottom).sheet(isPresented: self.$isShowingCustomization) {
             CustomizationView(selectedObject: self.$selectedObject, allOptions: allOptions)
         }
     }
