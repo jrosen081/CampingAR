@@ -10,13 +10,16 @@ import SwiftUI
 import RealityKit
 
 struct ContentView : View {
+    @State var totalRayTraceHits = 0
     var body: some View {
-        return ARViewContainer().edgesIgnoringSafeArea(.all)
+        return ARViewContainer(totalRayTraceHits: self.$totalRayTraceHits)
+            .edgesIgnoringSafeArea(.all)
+            .overlay(Text("Total hits: \(totalRayTraceHits)").padding(), alignment: .bottomTrailing)
     }
 }
 
 struct ARViewContainer: UIViewRepresentable {
-    
+    @Binding var totalRayTraceHits: Int
     
 //    static func makeBox(target: ARRaycastQuery.Target) {
 //        let box = MeshResource.generateBox(size: 0.3)
@@ -61,7 +64,7 @@ struct ARViewContainer: UIViewRepresentable {
     }
     
     func makeCoordinator() -> Coordinator {
-        Coordinator()
+        Coordinator(totalHits: self.$totalRayTraceHits)
     }
     
     func updateUIView(_ uiView: ARView, context: Context) {}
@@ -73,10 +76,17 @@ struct ARViewContainer: UIViewRepresentable {
             }
         }
         
+        let totalHits: Binding<Int>
+        
+        init(totalHits: Binding<Int>) {
+            self.totalHits = totalHits
+        }
+        
         @objc func gestureRecognizerTapped(_ tapped: UITapGestureRecognizer) {
             guard let arView = arView else { return }
             let tapLocation = tapped.location(in: arView)
             let rayCast = arView.raycast(from: tapLocation, allowing: .estimatedPlane, alignment: .horizontal)
+            totalHits.wrappedValue = rayCast.count
             rayCast.forEach { result in
                 let box = MeshResource.generateBox(size: 0.3)
                 let material = SimpleMaterial(color: .green, isMetallic: false)
