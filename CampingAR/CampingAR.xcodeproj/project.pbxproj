@@ -21,6 +21,7 @@
 		A02D0E7625E0C493003AC5D6 /* ARView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02D0E7525E0C493003AC5D6 /* ARView.swift */; };
 		A02D0E7925E0C7E4003AC5D6 /* CampingObjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02D0E7825E0C7E4003AC5D6 /* CampingObjectView.swift */; };
 		A02D0E8225E17E9C003AC5D6 /* CampsiteObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02D0E8125E17E9C003AC5D6 /* CampsiteObject.swift */; };
+		A065187C25E1AF510002432D /* CustomizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A065187B25E1AF510002432D /* CustomizationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		A02D0E7525E0C493003AC5D6 /* ARView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARView.swift; sourceTree = "<group>"; };
 		A02D0E7825E0C7E4003AC5D6 /* CampingObjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampingObjectView.swift; sourceTree = "<group>"; };
 		A02D0E8125E17E9C003AC5D6 /* CampsiteObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampsiteObject.swift; sourceTree = "<group>"; };
+		A065187B25E1AF510002432D /* CustomizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 				A02D0E4B25E0806D003AC5D6 /* Preview Content */,
 				A02D0E7825E0C7E4003AC5D6 /* CampingObjectView.swift */,
 				A02D0E8125E17E9C003AC5D6 /* CampsiteObject.swift */,
+				A065187B25E1AF510002432D /* CustomizationView.swift */,
 			);
 			path = CampingAR;
 			sourceTree = "<group>";
@@ -185,6 +188,7 @@
 				A02D0E4625E0806C003AC5D6 /* ContentView.swift in Sources */,
 				A02D0E8225E17E9C003AC5D6 /* CampsiteObject.swift in Sources */,
 				A02D0E7925E0C7E4003AC5D6 /* CampingObjectView.swift in Sources */,
+				A065187C25E1AF510002432D /* CustomizationView.swift in Sources */,
 				A02D0E7625E0C493003AC5D6 /* ARView.swift in Sources */,
 				A02D0E4425E0806C003AC5D6 /* AppDelegate.swift in Sources */,
 				A02D0E4825E0806C003AC5D6 /* Experience.rcproject in Sources */,
