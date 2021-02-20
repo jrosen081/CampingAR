@@ -20,37 +20,24 @@ struct ContentView : View {
     
     
     var body: some View {
-        ZStack(alignment: .topLeading) {
-            ZStack(alignment: .bottomTrailing) {
-                ARViewContainer(totalRayTraceHits: self.$totalRayTraceHits, dropLocation: self.$dropLocation, shouldShowMenu: self.$shouldShowMenu)
-                    .becomeDroppable()
-                    .edgesIgnoringSafeArea(.all)
-                    .overlay(Text("Total hits: \(totalRayTraceHits)").padding(), alignment: .topTrailing)
-                if shouldShowMenu {
-                    HStack {
-                        CampingObjectView()
-                        Button {
-                            self.isShowingCustomization = true
-                        } label: {
-                            Text("Test")
-                        }
+        ZStack(alignment: .bottomTrailing) {
+            ARViewContainer(totalRayTraceHits: self.$totalRayTraceHits, dropLocation: self.$dropLocation, shouldShowMenu: self.$shouldShowMenu)
+                .becomeDroppable()
+                .edgesIgnoringSafeArea(.all)
+                .overlay(Text("Total hits: \(totalRayTraceHits)").padding(), alignment: .topTrailing)
+            if shouldShowMenu || UIDevice.current.userInterfaceIdiom == .pad {
+                HStack {
+                    CampingObjectView(selectedObject: self.$selectedObject, shouldShowCustomization: self.$isShowingCustomization)
+                    Button {
+                        self.isShowingCustomization = true
+                    } label: {
+                        Text("Test")
                     }
-                    
                 }
-            }
-            if let object = selectedObject {
-                Image(object.iconName).frame(width: 100, height: 100)
+                
             }
         }.edgesIgnoringSafeArea(.bottom).sheet(isPresented: self.$isShowingCustomization) {
             CustomizationView(selectedObject: self.$selectedObject, allOptions: allOptions)
         }
     }
 }
-
-#if DEBUG
-struct ContentView_Previews : PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
-#endif
