@@ -15,7 +15,8 @@ struct ContentView : View {
     @State var shouldShowMenu = false
     @State var selectedObject: CampsiteObject? = nil
     @State var isShowingCustomization = false
-    let allOptions = ["fire1": CampsiteObject(iconName: "Fire-Filled", entityName: "", boundingBox: BoundingBox(height: 10, width: 20, length: 10), color: .gray), "fire2": CampsiteObject(iconName: "Fire-Unfilled", entityName: "ugh", boundingBox: BoundingBox(height: 10, width: 10, length: 10), color: .gray)]
+    
+    let allOptions = Dictionary(uniqueKeysWithValues: (0..<100).map { ("fire\($0)", CampsiteObject(iconName: "Fire-Filled", entityName: "", boundingBox: BoundingBox(height: 10, width: 20, length: 10), color: .green)) })
     
     
     var body: some View {

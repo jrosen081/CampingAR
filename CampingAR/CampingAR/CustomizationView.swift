@@ -24,25 +24,38 @@ struct CustomizationView: View {
         VStack {
             TextField("Search:", text: self.$currentOptions)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
-            LazyVGrid(columns: Array(repeating: GridItem(.flexible(minimum: 0, maximum: .infinity), spacing: nil, alignment: nil), count: 3)) {
-                ForEach(validObjects, id: \.0) { name, object in
-                    HStack {
-                        Spacer()
-                        VStack {
-                            Spacer()
-                            Text(name)
-                            Image(object.iconName).resizable().frame(maxHeight: 100)
-                            Spacer()
-                            
+            ZStack {
+                ScrollView {
+                    LazyVGrid(columns: Array(repeating: GridItem(.flexible(minimum: 0, maximum: .infinity), spacing: nil, alignment: nil), count: 3)) {
+                        ForEach(validObjects, id: \.0) { name, object in
+                            HStack {
+                                Spacer()
+                                VStack {
+                                    Spacer()
+                                    Text(name)
+                                    Image(object.iconName).resizable().frame(maxHeight: 100)
+                                    Spacer()
+                                    
+                                }
+                                Spacer()
+                            }.overlay(self.rectangle)
+                            .padding().onTapGesture {
+                                self.selectedObject = object
+                            }
                         }
-                        Spacer()
-                    }.overlay(self.rectangle)
-                    .padding().onTapGesture {
-                        self.selectedObject = object
+                    }
+                }
+                if validObjects.isEmpty {
+                    VStack {
+                        Image("oops")
+                            .renderingMode(.template)
+                            .resizable()
+                            .foregroundColor(.secondary)
+                            .frame(width: 200, height: 200)
+                        Text("Nothing matched that name, try again :)")
                     }
                 }
             }
-            Spacer()
         }.padding()
     }
     
