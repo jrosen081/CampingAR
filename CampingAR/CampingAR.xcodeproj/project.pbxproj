@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		460768E325E0D08F009716CE /* campfire.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 460768DE25E0D08E009716CE /* campfire.usdz */; };
+		460768E425E0D08F009716CE /* Wood.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 460768DF25E0D08E009716CE /* Wood.usdz */; };
+		460768E525E0D08F009716CE /* tent_1.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 460768E025E0D08E009716CE /* tent_1.usdz */; };
+		460768E625E0D08F009716CE /* tent_2.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 460768E125E0D08F009716CE /* tent_2.usdz */; };
+		460768E725E0D08F009716CE /* trailer.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 460768E225E0D08F009716CE /* trailer.usdz */; };
 		A02D0E4425E0806C003AC5D6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02D0E4325E0806C003AC5D6 /* AppDelegate.swift */; };
 		A02D0E4625E0806C003AC5D6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02D0E4525E0806C003AC5D6 /* ContentView.swift */; };
 		A02D0E4825E0806C003AC5D6 /* Experience.rcproject in Sources */ = {isa = PBXBuildFile; fileRef = A02D0E4725E0806C003AC5D6 /* Experience.rcproject */; };
@@ -16,6 +21,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		460768DE25E0D08E009716CE /* campfire.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = campfire.usdz; sourceTree = "<group>"; };
+		460768DF25E0D08E009716CE /* Wood.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Wood.usdz; sourceTree = "<group>"; };
+		460768E025E0D08E009716CE /* tent_1.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = tent_1.usdz; sourceTree = "<group>"; };
+		460768E125E0D08F009716CE /* tent_2.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = tent_2.usdz; sourceTree = "<group>"; };
+		460768E225E0D08F009716CE /* trailer.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = trailer.usdz; sourceTree = "<group>"; };
 		A02D0E4025E0806C003AC5D6 /* CampingAR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CampingAR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A02D0E4325E0806C003AC5D6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A02D0E4525E0806C003AC5D6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -37,6 +47,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		460768E925E0D09D009716CE /* ARModels */ = {
+			isa = PBXGroup;
+			children = (
+				460768DE25E0D08E009716CE /* campfire.usdz */,
+				460768E025E0D08E009716CE /* tent_1.usdz */,
+				460768E125E0D08F009716CE /* tent_2.usdz */,
+				460768E225E0D08F009716CE /* trailer.usdz */,
+				460768DF25E0D08E009716CE /* Wood.usdz */,
+			);
+			path = ARModels;
+			sourceTree = "<group>";
+		};
 		A02D0E3725E0806B003AC5D6 = {
 			isa = PBXGroup;
 			children = (
@@ -56,6 +78,7 @@
 		A02D0E4225E0806C003AC5D6 /* CampingAR */ = {
 			isa = PBXGroup;
 			children = (
+				460768E925E0D09D009716CE /* ARModels */,
 				A02D0E4325E0806C003AC5D6 /* AppDelegate.swift */,
 				A02D0E4525E0806C003AC5D6 /* ContentView.swift */,
 				A02D0E4725E0806C003AC5D6 /* Experience.rcproject */,
@@ -132,8 +155,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				460768E325E0D08F009716CE /* campfire.usdz in Resources */,
 				A02D0E5025E0806D003AC5D6 /* LaunchScreen.storyboard in Resources */,
 				A02D0E4D25E0806D003AC5D6 /* Preview Assets.xcassets in Resources */,
+				460768E725E0D08F009716CE /* trailer.usdz in Resources */,
+				460768E425E0D08F009716CE /* Wood.usdz in Resources */,
+				460768E525E0D08F009716CE /* tent_1.usdz in Resources */,
+				460768E625E0D08F009716CE /* tent_2.usdz in Resources */,
 				A02D0E4A25E0806D003AC5D6 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
