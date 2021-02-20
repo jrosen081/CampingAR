@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct CampsiteObject {
+struct CampsiteObject: Identifiable {
     let iconName: String
     let entityName: String
     let boundingBox: BoundingBox

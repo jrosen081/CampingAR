@@ -19,10 +19,10 @@ struct ContentView : View {
                 .becomeDroppable()
                 .edgesIgnoringSafeArea(.all)
                 .overlay(Text("Total hits: \(totalRayTraceHits)").padding(), alignment: .topTrailing)
-            if shouldShowMenu {
+            if shouldShowMenu || true {
                 CampingObjectView()
             }
-        }
+        }.edgesIgnoringSafeArea(.bottom)
     }
 }
 
