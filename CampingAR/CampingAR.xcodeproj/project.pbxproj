@@ -13,6 +13,8 @@
 		A02D0E4A25E0806D003AC5D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A02D0E4925E0806D003AC5D6 /* Assets.xcassets */; };
 		A02D0E4D25E0806D003AC5D6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A02D0E4C25E0806D003AC5D6 /* Preview Assets.xcassets */; };
 		A02D0E5025E0806D003AC5D6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A02D0E4E25E0806D003AC5D6 /* LaunchScreen.storyboard */; };
+		A02D0E7625E0C493003AC5D6 /* ARView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02D0E7525E0C493003AC5D6 /* ARView.swift */; };
+		A02D0E7925E0C7E4003AC5D6 /* CampingObjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02D0E7825E0C7E4003AC5D6 /* CampingObjectView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		A02D0E4C25E0806D003AC5D6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		A02D0E4F25E0806D003AC5D6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A02D0E5125E0806D003AC5D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A02D0E7525E0C493003AC5D6 /* ARView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARView.swift; sourceTree = "<group>"; };
+		A02D0E7825E0C7E4003AC5D6 /* CampingObjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampingObjectView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,12 +61,14 @@
 			isa = PBXGroup;
 			children = (
 				A02D0E4325E0806C003AC5D6 /* AppDelegate.swift */,
+				A02D0E7525E0C493003AC5D6 /* ARView.swift */,
 				A02D0E4525E0806C003AC5D6 /* ContentView.swift */,
 				A02D0E4725E0806C003AC5D6 /* Experience.rcproject */,
 				A02D0E4925E0806D003AC5D6 /* Assets.xcassets */,
 				A02D0E4E25E0806D003AC5D6 /* LaunchScreen.storyboard */,
 				A02D0E5125E0806D003AC5D6 /* Info.plist */,
 				A02D0E4B25E0806D003AC5D6 /* Preview Content */,
+				A02D0E7825E0C7E4003AC5D6 /* CampingObjectView.swift */,
 			);
 			path = CampingAR;
 			sourceTree = "<group>";
@@ -146,6 +152,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A02D0E4625E0806C003AC5D6 /* ContentView.swift in Sources */,
+				A02D0E7925E0C7E4003AC5D6 /* CampingObjectView.swift in Sources */,
+				A02D0E7625E0C493003AC5D6 /* ARView.swift in Sources */,
 				A02D0E4425E0806C003AC5D6 /* AppDelegate.swift in Sources */,
 				A02D0E4825E0806C003AC5D6 /* Experience.rcproject in Sources */,
 			);
