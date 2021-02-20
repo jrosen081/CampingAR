@@ -13,6 +13,10 @@ struct ContentView : View {
     @State var totalRayTraceHits = 0
     @State var dropLocation: CGPoint? = nil
     @State var shouldShowMenu = false
+    @State var selectedObject: CampsiteObject = CampsiteObject(iconName: "", entityName: "", boundingBox: BoundingBox(height: 10, width: 10, length: 10), color: .gray)
+    let allOptions = ["fire1"]
+    
+    
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             ARViewContainer(totalRayTraceHits: self.$totalRayTraceHits, dropLocation: self.$dropLocation, shouldShowMenu: self.$shouldShowMenu)

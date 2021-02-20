@@ -109,7 +109,7 @@ struct ARViewInteractor: DropDelegate {
     let arView: ARView
     
     func addBox(location tapLocation: CGPoint) -> Int {
-        let rayCast = arView.raycast(from: tapLocation, allowing: .estimatedPlane, alignment: .horizontal)
+        let rayCast = arView.raycast(from: tapLocation, allowing: .existingPlaneInfinite, alignment: .horizontal)
         rayCast.forEach { result in
             let box = MeshResource.generateBox(size: 0.3)
             let material = SimpleMaterial(color: .green, isMetallic: false)
