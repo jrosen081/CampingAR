@@ -35,7 +35,7 @@ struct CustomizationView: View {
                                     VStack {
                                         Spacer()
                                         Text(name).foregroundColor(.black)
-                                        Image(object.iconName).resizable().frame(width: 100, height: 100)
+                                        Image(object.iconName.replacingOccurrences(of: "Unfilled", with: "Filled")).resizable().frame(width: 100, height: 100)
                                         Spacer()
                                         
                                     }
