@@ -8,7 +8,7 @@
 import Foundation
 import RealityKit
 
-enum EntityType {
+enum EntityType : Hashable {
     case sleepingBag, bench, campfire, cooler, grill(Int), table, tent(Int), wood, chair
     
     var anchor: HasAnchoring & CustomAnchor {

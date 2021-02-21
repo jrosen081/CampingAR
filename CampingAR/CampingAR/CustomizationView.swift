@@ -10,6 +10,7 @@ import SwiftUI
 
 struct CustomizationView: View {
     @Binding var selectedObject: CampsiteObject?
+    @Binding var isOpen: Bool
     
     let allOptions: [String: CampsiteObject]
     @State var currentOptions = ""
@@ -43,6 +44,7 @@ struct CustomizationView: View {
                                 }.overlay(self.rectangle).foregroundColor(.black)
                                 .padding(10).onTapGesture {
                                     self.selectedObject = object
+                                    self.isOpen = false
                                 }
                             }
                         }
