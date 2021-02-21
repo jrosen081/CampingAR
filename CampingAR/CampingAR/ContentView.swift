@@ -16,12 +16,12 @@ struct ContentView : View {
     @State var selectedObject: CampsiteObject? = nil
     @State var isShowingCustomization = false
     
-    let allOptions = Dictionary(uniqueKeysWithValues: (0..<100).map { ("fire\($0)", CampsiteObject(iconName: "Fire-Filled", entityName: "", boundingBox: BoundingBox(height: 10, width: 20, length: 10), color: .green)) })
+    let allOptions = Dictionary(uniqueKeysWithValues: (0..<100).map { ("fire\($0)", CampsiteObject(iconName: "Fire-Filled", entityType: .campfire, boundingBox: BoundingBox(height: 10, width: 20, length: 10), color: .green)) })
     
     
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
-            ARViewContainer(totalRayTraceHits: self.$totalRayTraceHits, dropLocation: self.$dropLocation, shouldShowMenu: self.$shouldShowMenu)
+            ARViewContainer(totalRayTraceHits: self.$totalRayTraceHits, dropLocation: self.$dropLocation, shouldShowMenu: self.$shouldShowMenu, selectedObject: self.$selectedObject)
                 .becomeDroppable()
                 .edgesIgnoringSafeArea(.all)
                 .overlay(Text("Total hits: \(totalRayTraceHits)").padding(), alignment: .topTrailing)

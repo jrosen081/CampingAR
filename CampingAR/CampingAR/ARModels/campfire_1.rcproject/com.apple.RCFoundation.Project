@@ -105,6 +105,13 @@
                           }
                         ],
                         [
+                          "entityName",
+                          {
+                            "typeName" : "String",
+                            "value" : "campfire"
+                          }
+                        ],
+                        [
                           "rigidBody-enabled",
                           {
                             "typeName" : "Bool",

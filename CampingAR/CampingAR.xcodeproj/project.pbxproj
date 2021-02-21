@@ -27,6 +27,7 @@
 		A02D0E7925E0C7E4003AC5D6 /* CampingObjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02D0E7825E0C7E4003AC5D6 /* CampingObjectView.swift */; };
 		A02D0E8225E17E9C003AC5D6 /* CampsiteObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02D0E8125E17E9C003AC5D6 /* CampsiteObject.swift */; };
 		A065187C25E1AF510002432D /* CustomizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A065187B25E1AF510002432D /* CustomizationView.swift */; };
+		A065188925E1FD820002432D /* EntityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A065188825E1FD820002432D /* EntityType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		A02D0E7825E0C7E4003AC5D6 /* CampingObjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampingObjectView.swift; sourceTree = "<group>"; };
 		A02D0E8125E17E9C003AC5D6 /* CampsiteObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampsiteObject.swift; sourceTree = "<group>"; };
 		A065187B25E1AF510002432D /* CustomizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizationView.swift; sourceTree = "<group>"; };
+		A065188825E1FD820002432D /* EntityType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 				A02D0E7825E0C7E4003AC5D6 /* CampingObjectView.swift */,
 				A02D0E8125E17E9C003AC5D6 /* CampsiteObject.swift */,
 				A065187B25E1AF510002432D /* CustomizationView.swift */,
+				A065188825E1FD820002432D /* EntityType.swift */,
 			);
 			path = CampingAR;
 			sourceTree = "<group>";
@@ -199,6 +202,7 @@
 				A02D0E4625E0806C003AC5D6 /* ContentView.swift in Sources */,
 				4607692825E1D4C4009716CE /* tent_1.rcproject in Sources */,
 				4607692D25E1D4C4009716CE /* table_1.rcproject in Sources */,
+				A065188925E1FD820002432D /* EntityType.swift in Sources */,
 				4607692B25E1D4C4009716CE /* wood_1.rcproject in Sources */,
 				A02D0E8225E17E9C003AC5D6 /* CampsiteObject.swift in Sources */,
 				A02D0E7925E0C7E4003AC5D6 /* CampingObjectView.swift in Sources */,
@@ -352,7 +356,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"CampingAR/Preview Content\"";
-				DEVELOPMENT_TEAM = ML7XKE52XD;
+				DEVELOPMENT_TEAM = SCB9RTL9PP;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = CampingAR/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -374,7 +378,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"CampingAR/Preview Content\"";
-				DEVELOPMENT_TEAM = ML7XKE52XD;
+				DEVELOPMENT_TEAM = SCB9RTL9PP;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = CampingAR/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
