@@ -14,9 +14,9 @@
             filePath = "CampingAR/ARView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "118"
-            endingLineNumber = "118"
-            landmarkName = "init(coder:)"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
+            landmarkName = "addEntity(location:anchor:)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -90,9 +90,9 @@
             filePath = "CampingAR/ARView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
-            landmarkName = "addCoaching()"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
+            landmarkName = "addEntity(location:anchor:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -106,10 +106,10 @@
             filePath = "CampingAR/ARView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
-            landmarkName = "addEntity(location:anchor:)"
-            landmarkType = "7">
+            startingLineNumber = "85"
+            endingLineNumber = "85"
+            landmarkName = "arView"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -172,7 +172,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "51"
             endingLineNumber = "51"
-            landmarkName = "updateUIView(_:context:)"
+            landmarkName = "takeScreenshot(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -186,9 +186,9 @@
             filePath = "CampingAR/ARView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
-            landmarkName = "addEntity(location:selectedObject:)"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "updateUIView(_:context:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

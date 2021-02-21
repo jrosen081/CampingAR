@@ -16,7 +16,7 @@ struct ARViewContainer: UIViewRepresentable {
     @Binding var dropLocation: CGPoint?
     @Binding var shouldShowMenu: Bool
     @Binding var selectedObject: CampsiteObject?
-
+    @Binding var shouldTakeScreenshot: Bool
     
     func makeUIView(context: Context) -> ARView {
         
@@ -45,9 +45,28 @@ struct ARViewContainer: UIViewRepresentable {
         }
     }
     
+    func takeScreenshot(_ uiView: ARView) {
+        uiView.doScreenshot(callback: {
+            (img: UIImage?) -> Void in
+            let viewController = UIApplication.shared.windows.first!.rootViewController
+            let items = [img!]
+            let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                UIImageWriteToSavedPhotosAlbum(img!, nil, nil, nil)
+                return
+            }
+            viewController!.present(ac, animated: true)
+        })
+    }
+    
     func updateUIView(_ uiView: ARView, context: Context) {
-        print("Drop point is \(self.dropLocation)")
-        print("Selected object exists \(self.selectedObject != nil)")
+        if self.shouldTakeScreenshot {
+            self.takeScreenshot(uiView)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.shouldTakeScreenshot = false
+            }
+        }
+        
         guard let dropPoint = self.dropLocation else { return }
         context.coordinator.addEntity(location: dropPoint, selectedObject: self.selectedObject)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -135,5 +154,14 @@ extension CustomARView : ARCoachingOverlayViewDelegate {
     
     func coachingOverlayViewDidDeactivate(_ coachingOverlayView: ARCoachingOverlayView) {
         self.hasPlane.wrappedValue = true
+    }
+}
+
+extension ARView {
+    func doScreenshot(callback: @escaping (UIImage?) -> Void) {
+        self.snapshot(saveToHDR: false, completion: {
+            (img: ARView.Image?) -> Void in
+            callback(img)
+        })
     }
 }

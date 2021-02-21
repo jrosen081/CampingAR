@@ -18,6 +18,8 @@
 		4607692D25E1D4C4009716CE /* table_1.rcproject in Sources */ = {isa = PBXBuildFile; fileRef = 4607692325E1D4C4009716CE /* table_1.rcproject */; };
 		4607693E25E1FD35009716CE /* sleepingbag_1.rcproject in Sources */ = {isa = PBXBuildFile; fileRef = 4607693D25E1FD35009716CE /* sleepingbag_1.rcproject */; };
 		4607694125E21824009716CE /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4607694025E21824009716CE /* Launch Screen.storyboard */; };
+		7E7C2C2625E1EA8000D1D31B /* UIViewAsImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7C2C2525E1EA8000D1D31B /* UIViewAsImageExtension.swift */; };
+		7E7C2C2C25E2223D00D1D31B /* ScreenshotButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7C2C2B25E2223D00D1D31B /* ScreenshotButtonView.swift */; };
 		A02D0E4425E0806C003AC5D6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02D0E4325E0806C003AC5D6 /* AppDelegate.swift */; };
 		A02D0E4625E0806C003AC5D6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02D0E4525E0806C003AC5D6 /* ContentView.swift */; };
 		A02D0E4825E0806C003AC5D6 /* Experience.rcproject in Sources */ = {isa = PBXBuildFile; fileRef = A02D0E4725E0806C003AC5D6 /* Experience.rcproject */; };
@@ -42,6 +44,8 @@
 		4607692325E1D4C4009716CE /* table_1.rcproject */ = {isa = PBXFileReference; lastKnownFileType = file.rcproject; path = table_1.rcproject; sourceTree = "<group>"; };
 		4607693D25E1FD35009716CE /* sleepingbag_1.rcproject */ = {isa = PBXFileReference; lastKnownFileType = file.rcproject; path = sleepingbag_1.rcproject; sourceTree = "<group>"; };
 		4607694025E21824009716CE /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		7E7C2C2525E1EA8000D1D31B /* UIViewAsImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewAsImageExtension.swift; sourceTree = "<group>"; };
+		7E7C2C2B25E2223D00D1D31B /* ScreenshotButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotButtonView.swift; sourceTree = "<group>"; };
 		A02D0E4025E0806C003AC5D6 /* CampingAR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CampingAR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A02D0E4325E0806C003AC5D6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A02D0E4525E0806C003AC5D6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -115,6 +119,8 @@
 				A02D0E7825E0C7E4003AC5D6 /* CampingObjectView.swift */,
 				A02D0E8125E17E9C003AC5D6 /* CampsiteObject.swift */,
 				A065187B25E1AF510002432D /* CustomizationView.swift */,
+				7E7C2C2525E1EA8000D1D31B /* UIViewAsImageExtension.swift */,
+				7E7C2C2B25E2223D00D1D31B /* ScreenshotButtonView.swift */,
 				A065188825E1FD820002432D /* EntityType.swift */,
 			);
 			path = CampingAR;
@@ -210,6 +216,8 @@
 				4607692C25E1D4C4009716CE /* campfire_1.rcproject in Sources */,
 				4607692525E1D4C4009716CE /* bench_1.rcproject in Sources */,
 				A065187C25E1AF510002432D /* CustomizationView.swift in Sources */,
+				7E7C2C2C25E2223D00D1D31B /* ScreenshotButtonView.swift in Sources */,
+				7E7C2C2625E1EA8000D1D31B /* UIViewAsImageExtension.swift in Sources */,
 				A02D0E7625E0C493003AC5D6 /* ARView.swift in Sources */,
 				4607692625E1D4C4009716CE /* grill_2.rcproject in Sources */,
 				4607692A25E1D4C4009716CE /* grill_1.rcproject in Sources */,
