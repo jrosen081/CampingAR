@@ -26,14 +26,7 @@ struct ContentView : View {
                 .edgesIgnoringSafeArea(.all)
                 .overlay(Text("Total hits: \(totalRayTraceHits)").padding(), alignment: .topTrailing)
             if shouldShowMenu || UIDevice.current.userInterfaceIdiom == .pad {
-                HStack {
-                    CampingObjectView(selectedObject: self.$selectedObject, shouldShowCustomization: self.$isShowingCustomization)
-                    Button {
-                        self.isShowingCustomization = true
-                    } label: {
-                        Text("Test")
-                    }
-                }
+                CampingObjectView(selectedObject: self.$selectedObject, shouldShowCustomization: self.$isShowingCustomization)
                 
             }
         }.edgesIgnoringSafeArea(.bottom).sheet(isPresented: self.$isShowingCustomization) {
