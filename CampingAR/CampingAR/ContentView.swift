@@ -17,26 +17,19 @@ struct ContentView : View {
     @State var isShowingCustomization = false
     @State var shouldTakeScreenshot = false
     
-    let allOptions = Dictionary(uniqueKeysWithValues: (0..<100).map { ("fire\($0)", CampsiteObject(iconName: "Fire-Filled", entityName: "", boundingBox: BoundingBox(height: 10, width: 20, length: 10), color: .green)) })
+    let allOptions = Dictionary(uniqueKeysWithValues: (0..<100).map { ("fire\($0)", CampsiteObject(iconName: "Fire-Filled", entityType: .campfire, boundingBox: BoundingBox(height: 10, width: 20, length: 10), color: .green)) })
     
     
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
-            ARViewContainer(totalRayTraceHits: self.$totalRayTraceHits, dropLocation: self.$dropLocation, shouldShowMenu: self.$shouldShowMenu, shouldTakeScreenshot: self.$shouldTakeScreenshot)
+            ARViewContainer(totalRayTraceHits: self.$totalRayTraceHits, dropLocation: self.$dropLocation, shouldShowMenu: self.$shouldShowMenu, selectedObject: self.$selectedObject, shouldTakeScreenshot: self.$shouldTakeScreenshot)
                 .becomeDroppable()
                 .edgesIgnoringSafeArea(.all)
                 .overlay(Text("Total hits: \(totalRayTraceHits)").padding(), alignment: .topTrailing)
             if shouldShowMenu || UIDevice.current.userInterfaceIdiom == .pad {
                 VStack {
                     ScreenshotButtonView(shouldTakeScreenshot: self.$shouldTakeScreenshot)
-                    HStack {
-                        CampingObjectView(selectedObject: self.$selectedObject, shouldShowCustomization: self.$isShowingCustomization)
-                        Button {
-                            self.isShowingCustomization = true
-                        } label: {
-                            Text("Test")
-                        }
-                    }
+                    CampingObjectView(selectedObject: self.$selectedObject, shouldShowCustomization: self.$isShowingCustomization)
                 }
             }
         }.edgesIgnoringSafeArea(.bottom).sheet(isPresented: self.$isShowingCustomization) {

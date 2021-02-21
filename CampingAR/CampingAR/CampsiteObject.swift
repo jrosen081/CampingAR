@@ -10,7 +10,7 @@ import SwiftUI
 
 struct CampsiteObject: Identifiable {
     let iconName: String
-    let entityName: String
+    let entityType: EntityType
     let boundingBox: BoundingBox
     let color: Color
     let id = UUID()

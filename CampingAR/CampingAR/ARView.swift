@@ -13,27 +13,8 @@ struct ARViewContainer: UIViewRepresentable {
     @Binding var totalRayTraceHits: Int
     @Binding var dropLocation: CGPoint?
     @Binding var shouldShowMenu: Bool
+    @Binding var selectedObject: CampsiteObject?
     @Binding var shouldTakeScreenshot: Bool
-    
-    //    static func makeBox(target: ARRaycastQuery.Target) {
-    //        let box = MeshResource.generateBox(size: 0.3)
-    //        let material = SimpleMaterial(color: .green, isMetallic: false)
-    //        let entity = ModelEntity(mesh: box, materials: [material])
-    //
-    //        let anchor = AnchorEntity(target)
-    //        anchor.addChild(entity)
-    //        return anchor
-    //    }
-    
-    func makeBox() -> HasAnchoring {
-        let box = MeshResource.generateBox(size: 0.3)
-        let material = SimpleMaterial(color: .green, isMetallic: false)
-        let entity = ModelEntity(mesh: box, materials: [material])
-        
-        let anchor = AnchorEntity(plane: .horizontal)
-        anchor.addChild(entity)
-        return anchor
-    }
     
     func makeUIView(context: Context) -> ARView {
         
@@ -41,16 +22,9 @@ struct ARViewContainer: UIViewRepresentable {
         arView.addCoaching()
         context.coordinator.arView = arView
         
-        // Load the "Box" scene from the "Experience" Reality File
-        let boxAnchor = try! Experience.loadBox()
-        
-        arView.scene.addAnchor(makeBox())
-        
-        // Add the box anchor to the scene
-        arView.scene.anchors.append(boxAnchor)
-        
         let config = ARWorldTrackingConfiguration()
         config.planeDetection = .horizontal
+        config.frameSemantics.insert(.personSegmentationWithDepth)
         arView.session.run(config, options: [])
         
         return arView
@@ -58,7 +32,7 @@ struct ARViewContainer: UIViewRepresentable {
     }
     
     func makeCoordinator() -> Coordinator {
-        Coordinator(totalHits: self.$totalRayTraceHits)
+        Coordinator(totalHits: self.$totalRayTraceHits, selectedObject: self.$selectedObject)
     }
     
     func becomeDroppable() -> some View {
@@ -87,10 +61,9 @@ struct ARViewContainer: UIViewRepresentable {
         }
         
         guard let dropPoint = self.dropLocation else { return }
-        let totalCount = ARViewInteractor(arView: uiView).addBox(location: dropPoint)
+        context.coordinator.addEntity(location: dropPoint)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.dropLocation = nil
-            self.totalRayTraceHits = totalCount
         }
     }
 }
@@ -104,41 +77,41 @@ class Coordinator {
     }
     
     let totalHits: Binding<Int>
+    let selectedObject: Binding<CampsiteObject?>
     
-    init(totalHits: Binding<Int>) {
+    init(totalHits: Binding<Int>, selectedObject: Binding<CampsiteObject?>) {
         self.totalHits = totalHits
+        self.selectedObject = selectedObject
     }
     
     @objc func gestureRecognizerTapped(_ tapped: UITapGestureRecognizer) {
-        addBox(location: tapped.location(in: arView))
+        addEntity(location: tapped.location(in: arView))
     }
     
-    func addBox(location tapLocation: CGPoint) {
-        guard let arView = arView else { return }
-        totalHits.wrappedValue = ARViewInteractor(arView: arView).addBox(location: tapLocation)
+
+    func addEntity(location tapLocation: CGPoint) {
+        guard let arView = arView, let selectedObject = self.selectedObject.wrappedValue else { return }
+        ARViewInteractor(arView: arView).addEntity(location: tapLocation, anchor: selectedObject.entityType.anchor)
     }
 }
 
-struct ARViewInteractor: DropDelegate {
-    func performDrop(info: DropInfo) -> Bool {
-        return addBox(location: info.location) > 0
-    }
+struct ARViewInteractor {
     
     let arView: ARView
-    
-    func addBox(location tapLocation: CGPoint) -> Int {
-        let rayCast = arView.raycast(from: tapLocation, allowing: .existingPlaneInfinite, alignment: .horizontal)
-        rayCast.forEach { result in
-            let box = MeshResource.generateBox(size: 0.3)
-            let material = SimpleMaterial(color: .green, isMetallic: false)
-            let entity = ModelEntity(mesh: box, materials: [material])
-            entity.generateCollisionShapes(recursive: true)
-            let anchor = AnchorEntity(raycastResult: result)
-            anchor.addChild(entity)
-            arView.scene.addAnchor(anchor)
-            arView.installGestures([.rotation, .translation], for: entity)
-        }
-        return rayCast.count
+    func addEntity(location tapLocation: CGPoint, anchor: HasAnchoring & CustomAnchor) {
+        guard let entity = anchor.collisionEntity else { return}
+    let rayCast = arView.raycast(from: tapLocation, allowing: .estimatedPlane, alignment: .horizontal)
+    entity.generateCollisionShapes(recursive: true)
+    guard let result = rayCast.first else {return}
+    anchor.transform  = AnchorEntity(raycastResult: result).transform
+    arView.scene.addAnchor(anchor)
+    arView.installGestures([.rotation, .translation], for: entity)
+    anchor.addChild(entity)
+    let _ = arView.trackedRaycast(from: tapLocation, allowing: .estimatedPlane, alignment: .horizontal, updateHandler: { results in
+            guard let result = results.first else { return }
+            let anchorTemp = AnchorEntity(raycastResult: result)
+        anchor.transform = anchorTemp.transform
+        })
     }
 }
 
