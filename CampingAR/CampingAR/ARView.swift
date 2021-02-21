@@ -8,6 +8,8 @@
 import ARKit
 import RealityKit
 import SwiftUI
+import Foundation
+import UniformTypeIdentifiers
 
 struct ARViewContainer: UIViewRepresentable {
     @Binding var totalRayTraceHits: Int
@@ -36,15 +38,18 @@ struct ARViewContainer: UIViewRepresentable {
     }
     
     func becomeDroppable() -> some View {
-        return self.onDrop(of: ["my type"], isTargeted: nil) { _, location in
+        return self.onDrop(of: [UTType.data.description], isTargeted: nil) { _, location in
+            print("I am dropping")
             self.dropLocation = location
             return true
         }
     }
     
     func updateUIView(_ uiView: ARView, context: Context) {
+        print("Drop point is \(self.dropLocation)")
+        print("Selected object exists \(self.selectedObject != nil)")
         guard let dropPoint = self.dropLocation else { return }
-        context.coordinator.addEntity(location: dropPoint)
+        context.coordinator.addEntity(location: dropPoint, selectedObject: self.selectedObject)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.dropLocation = nil
         }
@@ -68,12 +73,12 @@ class Coordinator {
     }
     
     @objc func gestureRecognizerTapped(_ tapped: UITapGestureRecognizer) {
-        addEntity(location: tapped.location(in: arView))
+        addEntity(location: tapped.location(in: arView), selectedObject: self.selectedObject.wrappedValue)
     }
     
 
-    func addEntity(location tapLocation: CGPoint) {
-        guard let arView = arView, let selectedObject = self.selectedObject.wrappedValue else { return }
+    func addEntity(location tapLocation: CGPoint, selectedObject: CampsiteObject?) {
+        guard let arView = arView, let selectedObject = selectedObject else { return }
         ARViewInteractor(arView: arView).addEntity(location: tapLocation, anchor: selectedObject.entityType.anchor)
     }
 }
@@ -83,19 +88,19 @@ struct ARViewInteractor {
     let arView: ARView
     func addEntity(location tapLocation: CGPoint, anchor: HasAnchoring & CustomAnchor) {
         guard let entity = anchor.collisionEntity else { return}
-    let rayCast = arView.raycast(from: tapLocation, allowing: .estimatedPlane, alignment: .horizontal)
-    entity.generateCollisionShapes(recursive: true)
-    guard let result = rayCast.first else {return}
-    anchor.transform  = AnchorEntity(raycastResult: result).transform
-    arView.scene.addAnchor(anchor)
-    arView.installGestures([.rotation, .translation], for: entity)
-    anchor.addChild(entity)
-    let _ = arView.trackedRaycast(from: tapLocation, allowing: .estimatedPlane, alignment: .horizontal, updateHandler: { results in
-            guard let result = results.first else { return }
-            let anchorTemp = AnchorEntity(raycastResult: result)
-        anchor.transform = anchorTemp.transform
-        })
-    }
+        let rayCast = arView.raycast(from: tapLocation, allowing: .estimatedPlane, alignment: .horizontal)
+        entity.generateCollisionShapes(recursive: true)
+        guard let result = rayCast.first else {return}
+        anchor.transform  = AnchorEntity(raycastResult: result).transform
+        arView.scene.addAnchor(anchor)
+        arView.installGestures([.rotation, .translation], for: entity)
+        anchor.addChild(entity)
+        let _ = arView.trackedRaycast(from: tapLocation, allowing: .estimatedPlane, alignment: .horizontal, updateHandler: { results in
+                guard let result = results.first else { return }
+                let anchorTemp = AnchorEntity(raycastResult: result)
+            anchor.transform = anchorTemp.transform
+            })
+        }
 }
 
 class CustomARView: ARView {

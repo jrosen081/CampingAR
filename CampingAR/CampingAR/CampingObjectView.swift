@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import Foundation
+import UniformTypeIdentifiers
 
 struct CampingObjectView: View {
     @Binding var selectedObject: CampsiteObject?
@@ -20,7 +22,7 @@ struct CampingObjectView: View {
                     ForEach(allObjects) { object in
                         Image(selectedObject?.id == object.id ? object.iconName.replacingOccurrences(of: "Unfilled", with: "Filled") : object.iconName).resizable().onDrag {
                             selectedObject = object
-                            return NSItemProvider(item: nil, typeIdentifier: "my type")
+                            return NSItemProvider(item: nil, typeIdentifier: UTType.data.description)
                         }.frame(width: 100, height: 100, alignment: .center).padding(.leading, 3).padding(.trailing, 3)
                         .onTapGesture {
                             self.shouldShowCustomization = self.selectedObject?.id == object.id
