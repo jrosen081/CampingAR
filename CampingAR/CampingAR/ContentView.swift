@@ -15,26 +15,29 @@ struct ContentView : View {
     @State var shouldShowMenu = false
     @State var selectedObject: CampsiteObject? = nil
     @State var isShowingCustomization = false
+    @State var shouldTakeScreenshot = false
     
     let allOptions = Dictionary(uniqueKeysWithValues: (0..<100).map { ("fire\($0)", CampsiteObject(iconName: "Fire-Filled", entityName: "", boundingBox: BoundingBox(height: 10, width: 20, length: 10), color: .green)) })
     
     
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
-            ARViewContainer(totalRayTraceHits: self.$totalRayTraceHits, dropLocation: self.$dropLocation, shouldShowMenu: self.$shouldShowMenu)
+            ARViewContainer(totalRayTraceHits: self.$totalRayTraceHits, dropLocation: self.$dropLocation, shouldShowMenu: self.$shouldShowMenu, shouldTakeScreenshot: self.$shouldTakeScreenshot)
                 .becomeDroppable()
                 .edgesIgnoringSafeArea(.all)
                 .overlay(Text("Total hits: \(totalRayTraceHits)").padding(), alignment: .topTrailing)
             if shouldShowMenu || UIDevice.current.userInterfaceIdiom == .pad {
-                HStack {
-                    CampingObjectView(selectedObject: self.$selectedObject, shouldShowCustomization: self.$isShowingCustomization)
-                    Button {
-                        self.isShowingCustomization = true
-                    } label: {
-                        Text("Test")
+                VStack {
+                    ScreenshotButtonView(shouldTakeScreenshot: self.$shouldTakeScreenshot)
+                    HStack {
+                        CampingObjectView(selectedObject: self.$selectedObject, shouldShowCustomization: self.$isShowingCustomization)
+                        Button {
+                            self.isShowingCustomization = true
+                        } label: {
+                            Text("Test")
+                        }
                     }
                 }
-                
             }
         }.edgesIgnoringSafeArea(.bottom).sheet(isPresented: self.$isShowingCustomization) {
             CustomizationView(selectedObject: self.$selectedObject, allOptions: allOptions)

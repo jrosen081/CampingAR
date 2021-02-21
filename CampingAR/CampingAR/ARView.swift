@@ -13,6 +13,7 @@ struct ARViewContainer: UIViewRepresentable {
     @Binding var totalRayTraceHits: Int
     @Binding var dropLocation: CGPoint?
     @Binding var shouldShowMenu: Bool
+    @Binding var shouldTakeScreenshot: Bool
     
     //    static func makeBox(target: ARRaycastQuery.Target) {
     //        let box = MeshResource.generateBox(size: 0.3)
@@ -67,7 +68,24 @@ struct ARViewContainer: UIViewRepresentable {
         }
     }
     
+    func takeScreenshot(_ uiView: ARView) {
+        uiView.doScreenshot(callback: {
+            (img: UIImage?) -> Void in
+            let viewController = UIApplication.shared.windows.first!.rootViewController
+            let items = [img!]
+            let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
+            viewController!.present(ac, animated: true)
+        })
+    }
+    
     func updateUIView(_ uiView: ARView, context: Context) {
+        if self.shouldTakeScreenshot {
+            self.takeScreenshot(uiView)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.shouldTakeScreenshot = false
+            }
+        }
+        
         guard let dropPoint = self.dropLocation else { return }
         let totalCount = ARViewInteractor(arView: uiView).addBox(location: dropPoint)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -156,5 +174,14 @@ extension CustomARView : ARCoachingOverlayViewDelegate {
     
     func coachingOverlayViewDidDeactivate(_ coachingOverlayView: ARCoachingOverlayView) {
         self.hasPlane.wrappedValue = true
+    }
+}
+
+extension ARView {
+    func doScreenshot(callback: @escaping (UIImage?) -> Void) {
+        self.snapshot(saveToHDR: false, completion: {
+            (img: ARView.Image?) -> Void in
+            callback(img)
+        })
     }
 }
