@@ -24,7 +24,9 @@ struct ARViewContainer: UIViewRepresentable {
         
         let config = ARWorldTrackingConfiguration()
         config.planeDetection = .horizontal
-        config.frameSemantics.insert(.personSegmentationWithDepth)
+        if ARWorldTrackingConfiguration.supportsFrameSemantics([.bodyDetection, .personSegmentationWithDepth]) {
+            config.frameSemantics.insert(.personSegmentationWithDepth)
+        }
         arView.session.run(config, options: [])
         
         return arView
