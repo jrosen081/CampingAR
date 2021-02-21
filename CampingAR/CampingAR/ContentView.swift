@@ -13,17 +13,38 @@ struct ContentView : View {
     @State var totalRayTraceHits = 0
     @State var dropLocation: CGPoint? = nil
     @State var shouldShowMenu = false
-    @State var selectedObject: CampsiteObject? = nil
+    @State var selectedIndex: Int?
+    var selectedObjectBinding: Binding<CampsiteObject?> {
+        Binding(get: {
+            selectedIndex.map { allObjects[$0] }
+        }, set: { value in
+            if let value = value, let selectedIndex = allObjects.firstIndex(where: { $0.id == value.id }) ?? selectedIndex {
+                self.selectedIndex = selectedIndex
+                allObjects[selectedIndex] = value
+            } else {
+                selectedIndex = nil
+            }
+        })
+    }
+    var selectedObject: CampsiteObject? {
+        get {
+            return selectedObjectBinding.wrappedValue
+        }
+        set {
+            selectedObjectBinding.wrappedValue = newValue
+        }
+    }
     @State var isShowingCustomization = false
     @State var shouldTakeScreenshot = false
     @State var selectEntity: Entity? = nil
+    @State var allObjects = [CampsiteObject(iconName: "Fire-Unfilled", entityType: .campfire, boundingBox: BoundingBox(height: 10, width: 10, length: 10), color: .green), CampsiteObject(iconName: "Log-Unfilled", entityType: .wood, boundingBox: BoundingBox(height: 10, width: 10, length: 10), color: .blue), CampsiteObject(iconName: "Tent-Unfilled", entityType: .tent(0), boundingBox: BoundingBox(height: 10, width: 10, length: 10), color: .orange), CampsiteObject(iconName: "Table-Unfilled", entityType: .table, boundingBox: BoundingBox(height: 10, width: 10, length: 10), color: .red), CampsiteObject(iconName: "Chair-Unfilled", entityType: .chair, boundingBox: BoundingBox(height: 10, width: 10, length: 10), color: .green), CampsiteObject(iconName: "Cooler-Unfilled", entityType: .cooler, boundingBox: BoundingBox(height: 10, width: 10, length: 10), color: .green), CampsiteObject(iconName: "SleepingBag-Unfilled", entityType: .sleepingBag, boundingBox: BoundingBox(height: 10, width: 10, length: 10), color: .green), CampsiteObject(iconName: "Grill-Unfilled", entityType: .grill(1), boundingBox: BoundingBox(height: 10, width: 10, length: 10), color: .green),CampsiteObject(iconName: "Bench-Unfilled", entityType: .bench, boundingBox: BoundingBox(height: 10, width: 10, length: 10), color: .green)]
     
     let allOptions = Dictionary(uniqueKeysWithValues: (0..<100).map { ("fire\($0)", CampsiteObject(iconName: "Fire-Filled", entityType: .campfire, boundingBox: BoundingBox(height: 10, width: 20, length: 10), color: .green)) })
     
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             ZStack(alignment: .topTrailing) {
-                ARViewContainer(totalRayTraceHits: self.$totalRayTraceHits, dropLocation: self.$dropLocation, shouldShowMenu: self.$shouldShowMenu, selectedObject: self.$selectedObject, shouldTakeScreenshot: self.$shouldTakeScreenshot, selectedEntity: self.$selectEntity)
+                ARViewContainer(totalRayTraceHits: self.$totalRayTraceHits, dropLocation: self.$dropLocation, shouldShowMenu: self.$shouldShowMenu, selectedObject: self.selectedObjectBinding, shouldTakeScreenshot: self.$shouldTakeScreenshot, selectedEntity: self.$selectEntity)
                     .becomeDroppable()
                     .edgesIgnoringSafeArea(.all)
                 if self.selectEntity != nil {
@@ -46,11 +67,11 @@ struct ContentView : View {
             if shouldShowMenu || UIDevice.current.userInterfaceIdiom == .pad {
                 VStack {
                     ScreenshotButtonView(shouldTakeScreenshot: self.$shouldTakeScreenshot)
-                    CampingObjectView(selectedObject: self.$selectedObject, shouldShowCustomization: self.$isShowingCustomization)
+                    CampingObjectView(selectedObject: self.selectedObjectBinding, shouldShowCustomization: self.$isShowingCustomization, allObjects: allObjects)
                 }
             }
         }.edgesIgnoringSafeArea(.bottom).sheet(isPresented: self.$isShowingCustomization) {
-            CustomizationView(selectedObject: self.$selectedObject, allOptions: allOptions)
+            CustomizationView(selectedObject: self.selectedObjectBinding, allOptions: allOptions)
         }
     }
 }

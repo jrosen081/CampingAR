@@ -12,7 +12,7 @@ import UniformTypeIdentifiers
 struct CampingObjectView: View {
     @Binding var selectedObject: CampsiteObject?
     @Binding var shouldShowCustomization: Bool
-    let allObjects = [CampsiteObject(iconName: "Fire-Unfilled", entityType: .campfire, boundingBox: BoundingBox(height: 10, width: 10, length: 10), color: .green), CampsiteObject(iconName: "Log-Unfilled", entityType: .wood, boundingBox: BoundingBox(height: 10, width: 10, length: 10), color: .blue), CampsiteObject(iconName: "Tent-Unfilled", entityType: .tent(0), boundingBox: BoundingBox(height: 10, width: 10, length: 10), color: .orange), CampsiteObject(iconName: "Table-Unfilled", entityType: .table, boundingBox: BoundingBox(height: 10, width: 10, length: 10), color: .red), CampsiteObject(iconName: "Chair-Unfilled", entityType: .chair, boundingBox: BoundingBox(height: 10, width: 10, length: 10), color: .green), CampsiteObject(iconName: "Cooler-Unfilled", entityType: .cooler, boundingBox: BoundingBox(height: 10, width: 10, length: 10), color: .green), CampsiteObject(iconName: "SleepingBag-Unfilled", entityType: .sleepingBag, boundingBox: BoundingBox(height: 10, width: 10, length: 10), color: .green), CampsiteObject(iconName: "Grill-Unfilled", entityType: .grill(1), boundingBox: BoundingBox(height: 10, width: 10, length: 10), color: .green),CampsiteObject(iconName: "Bench-Unfilled", entityType: .bench, boundingBox: BoundingBox(height: 10, width: 10, length: 10), color: .green)]
+    let allObjects : [CampsiteObject]
     
     var body: some View {
         return ZStack {
