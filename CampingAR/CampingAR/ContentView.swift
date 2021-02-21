@@ -16,16 +16,33 @@ struct ContentView : View {
     @State var selectedObject: CampsiteObject? = nil
     @State var isShowingCustomization = false
     @State var shouldTakeScreenshot = false
+    @State var selectEntity: Entity? = nil
     
     let allOptions = Dictionary(uniqueKeysWithValues: (0..<100).map { ("fire\($0)", CampsiteObject(iconName: "Fire-Filled", entityType: .campfire, boundingBox: BoundingBox(height: 10, width: 20, length: 10), color: .green)) })
     
-    
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
-            ARViewContainer(totalRayTraceHits: self.$totalRayTraceHits, dropLocation: self.$dropLocation, shouldShowMenu: self.$shouldShowMenu, selectedObject: self.$selectedObject, shouldTakeScreenshot: self.$shouldTakeScreenshot)
-                .becomeDroppable()
-                .edgesIgnoringSafeArea(.all)
-                .overlay(Text("Total hits: \(totalRayTraceHits)").padding(), alignment: .topTrailing)
+            ZStack(alignment: .topTrailing) {
+                ARViewContainer(totalRayTraceHits: self.$totalRayTraceHits, dropLocation: self.$dropLocation, shouldShowMenu: self.$shouldShowMenu, selectedObject: self.$selectedObject, shouldTakeScreenshot: self.$shouldTakeScreenshot, selectedEntity: self.$selectEntity)
+                    .becomeDroppable()
+                    .edgesIgnoringSafeArea(.all)
+                if self.selectEntity != nil {
+                    Button(action: {
+                        var selectedEntity = self.selectEntity;
+                        while (selectedEntity?.parent != nil) {
+                            selectedEntity = selectedEntity?.parent
+                        }
+                        selectedEntity?.removeFromParent()
+                        self.selectEntity = nil
+                    }, label: {
+                        Text("Delete")
+                    }).padding()
+                    .background(Color(hue: 0.244, saturation: 0.13, brightness: 0.84))
+                    .cornerRadius(10)
+                    .padding()
+                    .foregroundColor(.black)
+                }
+            }
             if shouldShowMenu || UIDevice.current.userInterfaceIdiom == .pad {
                 VStack {
                     ScreenshotButtonView(shouldTakeScreenshot: self.$shouldTakeScreenshot)

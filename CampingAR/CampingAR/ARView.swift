@@ -17,6 +17,7 @@ struct ARViewContainer: UIViewRepresentable {
     @Binding var shouldShowMenu: Bool
     @Binding var selectedObject: CampsiteObject?
     @Binding var shouldTakeScreenshot: Bool
+    @Binding var selectedEntity: Entity?
     
     func makeUIView(context: Context) -> ARView {
         
@@ -34,7 +35,7 @@ struct ARViewContainer: UIViewRepresentable {
     }
     
     func makeCoordinator() -> Coordinator {
-        Coordinator(totalHits: self.$totalRayTraceHits, selectedObject: self.$selectedObject)
+        Coordinator(totalHits: self.$totalRayTraceHits, selectedObject: self.$selectedObject, selectedEntity: self.$selectedEntity)
     }
     
     func becomeDroppable() -> some View {
@@ -85,14 +86,18 @@ class Coordinator {
     
     let totalHits: Binding<Int>
     let selectedObject: Binding<CampsiteObject?>
+    let selectedEntity: Binding<Entity?>
     
-    init(totalHits: Binding<Int>, selectedObject: Binding<CampsiteObject?>) {
+    init(totalHits: Binding<Int>, selectedObject: Binding<CampsiteObject?>, selectedEntity: Binding<Entity?>) {
         self.totalHits = totalHits
         self.selectedObject = selectedObject
+        self.selectedEntity = selectedEntity
     }
     
     @objc func gestureRecognizerTapped(_ tapped: UITapGestureRecognizer) {
-        addEntity(location: tapped.location(in: arView), selectedObject: self.selectedObject.wrappedValue)
+        guard let arView = arView else { return }
+        ARViewInteractor(arView: arView).selectEntity(location: tapped.location(in: arView), entity: self.selectedEntity)
+        
     }
     
 
@@ -110,7 +115,7 @@ struct ARViewInteractor {
         let rayCast = arView.raycast(from: tapLocation, allowing: .estimatedPlane, alignment: .horizontal)
         entity.generateCollisionShapes(recursive: true)
         guard let result = rayCast.first else {return}
-        anchor.transform  = AnchorEntity(raycastResult: result).transform
+        anchor.transform = AnchorEntity(raycastResult: result).transform
         arView.scene.addAnchor(anchor)
         arView.installGestures([.rotation, .translation], for: entity)
         anchor.addChild(entity)
@@ -119,7 +124,11 @@ struct ARViewInteractor {
                 let anchorTemp = AnchorEntity(raycastResult: result)
             anchor.transform = anchorTemp.transform
             })
-        }
+    }
+    
+    func selectEntity(location tapLocation: CGPoint, entity: Binding<Entity?>) {
+        entity.wrappedValue = arView.entity(at: tapLocation)
+    }
 }
 
 class CustomARView: ARView {
