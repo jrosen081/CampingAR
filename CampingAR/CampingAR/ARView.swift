@@ -48,6 +48,10 @@ struct ARViewContainer: UIViewRepresentable {
             let viewController = UIApplication.shared.windows.first!.rootViewController
             let items = [img!]
             let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                UIImageWriteToSavedPhotosAlbum(img!, nil, nil, nil)
+                return
+            }
             viewController!.present(ac, animated: true)
         })
     }
