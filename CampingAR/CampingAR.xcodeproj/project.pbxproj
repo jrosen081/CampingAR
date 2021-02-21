@@ -16,6 +16,7 @@
 		4607692B25E1D4C4009716CE /* wood_1.rcproject in Sources */ = {isa = PBXBuildFile; fileRef = 4607692025E1D4C0009716CE /* wood_1.rcproject */; };
 		4607692C25E1D4C4009716CE /* campfire_1.rcproject in Sources */ = {isa = PBXBuildFile; fileRef = 4607692225E1D4C3009716CE /* campfire_1.rcproject */; };
 		4607692D25E1D4C4009716CE /* table_1.rcproject in Sources */ = {isa = PBXBuildFile; fileRef = 4607692325E1D4C4009716CE /* table_1.rcproject */; };
+		4607693E25E1FD35009716CE /* sleepingbag_1.rcproject in Sources */ = {isa = PBXBuildFile; fileRef = 4607693D25E1FD35009716CE /* sleepingbag_1.rcproject */; };
 		A02D0E4425E0806C003AC5D6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02D0E4325E0806C003AC5D6 /* AppDelegate.swift */; };
 		A02D0E4625E0806C003AC5D6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02D0E4525E0806C003AC5D6 /* ContentView.swift */; };
 		A02D0E4825E0806C003AC5D6 /* Experience.rcproject in Sources */ = {isa = PBXBuildFile; fileRef = A02D0E4725E0806C003AC5D6 /* Experience.rcproject */; };
@@ -38,6 +39,7 @@
 		4607692025E1D4C0009716CE /* wood_1.rcproject */ = {isa = PBXFileReference; lastKnownFileType = file.rcproject; path = wood_1.rcproject; sourceTree = "<group>"; };
 		4607692225E1D4C3009716CE /* campfire_1.rcproject */ = {isa = PBXFileReference; lastKnownFileType = file.rcproject; path = campfire_1.rcproject; sourceTree = "<group>"; };
 		4607692325E1D4C4009716CE /* table_1.rcproject */ = {isa = PBXFileReference; lastKnownFileType = file.rcproject; path = table_1.rcproject; sourceTree = "<group>"; };
+		4607693D25E1FD35009716CE /* sleepingbag_1.rcproject */ = {isa = PBXFileReference; lastKnownFileType = file.rcproject; path = sleepingbag_1.rcproject; sourceTree = "<group>"; };
 		A02D0E4025E0806C003AC5D6 /* CampingAR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CampingAR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A02D0E4325E0806C003AC5D6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A02D0E4525E0806C003AC5D6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 		460768E925E0D09D009716CE /* ARModels */ = {
 			isa = PBXGroup;
 			children = (
+				4607693D25E1FD35009716CE /* sleepingbag_1.rcproject */,
 				4607691825E1D4BD009716CE /* bench_1.rcproject */,
 				4607692225E1D4C3009716CE /* campfire_1.rcproject */,
 				4607691B25E1D4BE009716CE /* cooler_1.rcproject */,
@@ -199,6 +202,7 @@
 				4607692B25E1D4C4009716CE /* wood_1.rcproject in Sources */,
 				A02D0E8225E17E9C003AC5D6 /* CampsiteObject.swift in Sources */,
 				A02D0E7925E0C7E4003AC5D6 /* CampingObjectView.swift in Sources */,
+				4607693E25E1FD35009716CE /* sleepingbag_1.rcproject in Sources */,
 				4607692C25E1D4C4009716CE /* campfire_1.rcproject in Sources */,
 				4607692525E1D4C4009716CE /* bench_1.rcproject in Sources */,
 				A065187C25E1AF510002432D /* CustomizationView.swift in Sources */,
