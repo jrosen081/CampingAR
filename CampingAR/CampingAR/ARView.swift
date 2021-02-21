@@ -24,6 +24,7 @@ struct ARViewContainer: UIViewRepresentable {
         
         let config = ARWorldTrackingConfiguration()
         config.planeDetection = .horizontal
+        config.frameSemantics.insert(.personSegmentationWithDepth)
         arView.session.run(config, options: [])
         
         return arView
@@ -70,26 +71,30 @@ class Coordinator {
         addEntity(location: tapped.location(in: arView))
     }
     
+
     func addEntity(location tapLocation: CGPoint) {
         guard let arView = arView, let selectedObject = self.selectedObject.wrappedValue else { return }
-        totalHits.wrappedValue = ARViewInteractor(arView: arView).addEntity(location: tapLocation, anchor: selectedObject.entityType.anchor)
+        ARViewInteractor(arView: arView).addEntity(location: tapLocation, anchor: selectedObject.entityType.anchor)
     }
 }
 
 struct ARViewInteractor {
     
     let arView: ARView
-    
-    func addEntity(location tapLocation: CGPoint, anchor: HasAnchoring & CustomAnchor) -> Int {
-        guard let entity = anchor.collisionEntity else { return 0 }
-        let rayCast = arView.raycast(from: tapLocation, allowing: .existingPlaneInfinite, alignment: .horizontal)
-        rayCast.forEach { result in
-            entity.generateCollisionShapes(recursive: true)
-            anchor.transform = AnchorEntity(raycastResult: result).transform
-            arView.scene.addAnchor(anchor)
-            arView.installGestures([.rotation, .translation], for: entity)
-        }
-        return rayCast.count
+    func addEntity(location tapLocation: CGPoint, anchor: HasAnchoring & CustomAnchor) {
+        guard let entity = anchor.collisionEntity else { return}
+    let rayCast = arView.raycast(from: tapLocation, allowing: .estimatedPlane, alignment: .horizontal)
+    entity.generateCollisionShapes(recursive: true)
+    guard let result = rayCast.first else {return}
+    anchor.transform  = AnchorEntity(raycastResult: result).transform
+    arView.scene.addAnchor(anchor)
+    arView.installGestures([.rotation, .translation], for: entity)
+    anchor.addChild(entity)
+    let _ = arView.trackedRaycast(from: tapLocation, allowing: .estimatedPlane, alignment: .horizontal, updateHandler: { results in
+            guard let result = results.first else { return }
+            let anchorTemp = AnchorEntity(raycastResult: result)
+        anchor.transform = anchorTemp.transform
+        })
     }
 }
 
